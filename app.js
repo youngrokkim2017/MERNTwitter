@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const db = require("./config/keys.mongoURI");
 const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
+const User = requre("./models/User");
+const bodyParser = require("body-parser"); //body-parser tells app what source of request it should respond to
 
 
 mongoose
@@ -11,8 +13,20 @@ mongoose
 .then(() => console.log("Connected to mongoDB"))
 .catch(err => console.log(err));
 
+app.use(bodyParser.urlencoded({ // app responds to responds from other apps, like postman
+    extended: false
+}));
+
+app.use(bodyParser.json()); //these tells the app that it wants to respond to json
+
 app.get("/", (requestObj, responseObj) => { //app listening for get requests
     // debugger
+    const user = newUser({
+        handle: "testuser",
+        email: "email@email.com",
+        password: "password"
+    });
+    user.save();
     responseObj.send("Hello a/A!");
 });
 
