@@ -5,12 +5,26 @@ const User = require('../../models/User');
 const bcrypt = require("bcryptjs");
 const keys = require("../../config/keys");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 router.get("/test", (req, res) => {
     res.json({ ms: "this is the user route" }); //sends back a json string that looks like the string passed in
 });
 
 router.post('/register', (req, res) => {
+    //register validations
+    // call validateRegisterInput on the body
+    const { errors, isValid } = validateRegisterInput(req.body);
+
+    //check
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+
+
     // Check to make sure nobody has already registered with a duplicate email
     User.findOne({ email: req.body.email })
         .then(user => {
@@ -43,6 +57,17 @@ router.post('/register', (req, res) => {
 })
 
 router.post('./login', (req, res) => {
+    //login validations
+    // destructure errors and isvalid, just like for register
+    const { errors, isValid } = validateRegisterInput(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    
+
+
+
     const email = req.body.email;
     const password = req.body.password;
 
