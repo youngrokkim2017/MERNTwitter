@@ -26,7 +26,7 @@ export default class Profile extends React.Component {
             return (
                 <div>
                     <h2>All of this User's Tweets</h2>
-                    {this.state.tweets.map => (
+                    {this.state.tweets.map(
                         <TweetBox key={tweet._id} text={tweet.text} />
                     )}
                 </div>
