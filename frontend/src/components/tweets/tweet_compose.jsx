@@ -24,7 +24,7 @@ export default class TweetCompose extends React.Component {
             text: this.state.text
         };
 
-        this.props.composeTweet(tweets);
+        this.props.composeTweet(tweet);
         this.setState({text: ''})
     }
 
