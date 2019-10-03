@@ -30,7 +30,7 @@ export default class TweetCompose extends React.Component {
 
     update() {
         return e => this.setState({
-            rext: e.currentTarget.value
+            text: e.currentTarget.value
         });
     }
 
